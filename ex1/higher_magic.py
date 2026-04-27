@@ -43,7 +43,7 @@ def power_amplifier(base_spell: Callable, multiplier: int) -> Callable:
 
 
 def conditional_caster(
-    condition: Callable, spell: Callable) -> Callable:
+        condition: Callable, spell: Callable) -> Callable:
     """ """
     if callable(spell) and callable(condition):
         def conditional_spell(target: str, power: int) -> str:
@@ -57,24 +57,23 @@ def conditional_caster(
 
 def spell_sequence(spells: List[Callable]) -> Callable:
     """ """
-    for spell in spells:
-        if not callable(spell):
-            raise TypeError(f"Error: {spell} must be callable")
-    def sequence_caster(target: str, power: int) -> List[str]:
-        """ """
-        result_list: List[str] = []
-        for spell in spells:
-            result_list.append(spell(target, power))
-        return result_list
-    return sequence_caster
+    if all(map(callable, spells)):
+        def sequence_caster(target: str, power: int) -> List[str]:
+            """ """
+            result_list: List[str] = []
+            for spell in spells:
+                result_list.append(spell(target, power))
+            return result_list
+        return sequence_caster
+    raise TypeError("Error: All arguments must be callable")
 
 
 if __name__ == "__main__":
-    GRIMOIRE: List[Callable] = [
+    GRIMOIRE: list = [
         heal,
         bolganone,
         nosferatu,
-        fimbulvetr,
+        fimbulvetr, 1
     ]
 
     print("Testing spell combiner...")
@@ -86,7 +85,7 @@ if __name__ == "__main__":
 
     print("Testing power amplifier...")
     recover: Callable = power_amplifier(GRIMOIRE[0], 2)
-    move_2 : str = recover('Goblin', 14)
+    move_2: str = recover('Goblin', 14)
     print(move_2)
 
     print("\nTesting conditional caster...")
