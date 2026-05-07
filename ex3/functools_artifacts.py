@@ -7,7 +7,7 @@ def spell_reducer(spells: list[int], operation: str) -> int:
     """ """
     if not spells:
         return 0
-    operations = {
+    operations: dict = {
         "add": add,
         "multiply": mul,
         "max": max,
@@ -72,6 +72,7 @@ if __name__ == "__main__":
     print(f"Max: {spell_reducer(spells, 'max')}")
 
     print("\nTesting partial enchanter...")
+
     def base_enchantment(power: int, element: str, target: str) -> str:
         return f"{element} enchantment with {power} power applied to {target}"
     enchanters = partial_enchanter(base_enchantment)

@@ -4,6 +4,7 @@ from typing import Callable, Any
 def mage_counter() -> Callable:
     """ """
     count: int = 0
+
     def self_counter() -> int:
         """ """
         nonlocal count
@@ -15,6 +16,7 @@ def mage_counter() -> Callable:
 def spell_accumulator(initial_power: int) -> Callable:
     """ """
     result_power: int = initial_power
+
     def add_power(power: int) -> int:
         nonlocal result_power
         result_power += power
@@ -24,6 +26,7 @@ def spell_accumulator(initial_power: int) -> Callable:
 
 def enchantment_factory(enchantment_type: str) -> Callable:
     """ """
+
     def enchantment_applier(item_name: str):
         """ """
         return f"{enchantment_type} {item_name}"
@@ -33,9 +36,11 @@ def enchantment_factory(enchantment_type: str) -> Callable:
 def memory_vault() -> dict[str, Callable]:
     """ """
     vault: dict = dict()
+
     def store(key: str, value: Any):
         """ """
         vault[key] = value
+
     def recall(key: str) -> Any | str:
         if key in vault:
             return vault[key]
